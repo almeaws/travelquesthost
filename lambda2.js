@@ -6,16 +6,16 @@ var queryString = require('querystring');
     //calling twilio with response from mapquest   
  console.log('Loading twilio event');
 // Twilio Credentials 
-var accountSid = 'AC312aa1628b17173e2bc0f7b3b571ced3';
-var authToken = '9e519b3b415172c94797f4bf4d70ecd1';
-var fromNumber = '+17865778378';
+var accountSid = '';
+var authToken = '';
+var fromNumber = '+';
 
     console.log('Running event');
 
     // The SMS message to send
     var message = {
-        To: '+14156465601', 
-        From: '+17865778378',
+        To: '+', 
+        From: '+',
         Body: 'testingat2am'
     };
 
@@ -25,7 +25,7 @@ var fromNumber = '+17865778378';
     var options = {
         host: 'api.twilio.com',
         port: 443,
-        path: '/2010-04-01/Accounts/AC312aa1628b17173e2bc0f7b3b571ced3/Messages.json/',
+        path: '/2010-04-01/Accounts//Messages.json/',
         method: 'POST',
         headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
