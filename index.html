@@ -21,8 +21,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css" />
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
-        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key=UShjaMayAC4UkuBJ5nu5rqFuraxzEOQU"></script>
-        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-routing.js?key=UShjaMayAC4UkuBJ5nu5rqFuraxzEOQU"></script>
+        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key="></script>
+        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-routing.js?key="></script>
 
         <script type="text/javascript">
 
@@ -69,7 +69,7 @@
 
                             L.DomUtil.get('route-narrative').innerHTML = html;
                             //send sms to twilio
-                            text="https://api.tropo.com/1.0/sessions?action=create&TOKEN=4655636b764e686c7250716768777744566869784f704d684f6f79704369794c585a706f4977635373756d61&numbertodial=4156465601&customername=al&msg="+html;
+                            text="https://api.tropo.com/1.0/sessions?action=create&TOKEN=&numbertodial=&customername=al&msg="+html;
                                 var xhr = new XMLHttpRequest();
                                 xhr.open('GET', text, true);
                                 xhr.send();
