@@ -1,0 +1,118 @@
+<html>
+    <head>
+         <style>
+         #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        }
+        </style>
+
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
+        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-map.js?key=UShjaMayAC4UkuBJ5nu5rqFuraxzEOQU"></script>
+        <script src="https://www.mapquestapi.com/sdk/leaflet/v2.s/mq-routing.js?key=UShjaMayAC4UkuBJ5nu5rqFuraxzEOQU"></script>
+
+        <script type="text/javascript">
+
+                window.onload = function() 
+                {
+
+                    var map,dir;
+
+                    map = L.map('map', {
+                        layers: MQ.mapLayer(),
+                        center: [ 40.771, -73.974 ],
+                        zoom: 13
+                                        }
+                                );
+
+                     // Listen to change events from the start and end lists.
+                    var onChangeHandler = function() {
+
+                      calculateAndDisplayRoute(map,dir);
+                                                        };
+
+                    document.getElementById('start').addEventListener('change', onChangeHandler);
+                    document.getElementById('end').addEventListener('change', onChangeHandler);
+                }
+
+        function calculateAndDisplayRoute(map) {
+      
+                dir = MQ.routing.directions()
+                    .on('success', function(data) 
+                    {
+                        var legs = data.route.legs,
+                            html = '',
+                            maneuvers,
+                            i;
+
+                        if (legs && legs.length) 
+                        {
+                            maneuvers = legs[0].maneuvers;
+
+                            for (i=0; i<maneuvers.length; i++) {
+                                html += (i+1) + '. ';
+                                html += maneuvers[i].narrative + '<br />';
+                                                                }
+
+                            L.DomUtil.get('route-narrative').innerHTML = html;
+                            //send sms to twilio
+                            text="https://api.tropo.com/1.0/sessions?action=create&TOKEN=4655636b764e686c7250716768777744566869784f704d684f6f79704369794c585a706f4977635373756d61&numbertodial=4156465601&customername=al&msg="+html;
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('GET', text, true);
+                                xhr.send();
+                        }
+                    });
+
+                dir.route({
+                    locations: [
+                        document.getElementById('start').value,
+                        document.getElementById('end').value
+                    ]
+                    //,options: { routeType: ['multimodal'] }
+                        });
+
+                map.addLayer(MQ.routing.routeLayer({
+                    directions: dir,
+                    fitBounds: true
+                }));
+            }
+        </script>
+    </head>
+
+    <body style='border:0; margin: 0'>
+        <div id="floating-panel">
+    <b>Start: </b>
+    <select id="start">
+      <option value="penn station, new york, ny">Penn Station</option>
+      <option value="grand central station, new york, ny">Grand Central Station</option>
+      <option value="625 8th Avenue, New York, NY, 10018">Port Authority Bus Terminal</option>
+      <option value="staten island ferry terminal, new york, ny">Staten Island Ferry Terminal</option>
+      <option value="101 E 125th Street, New York, NY">Harlem - 125th St Station</option>
+    </select>
+    <b>End: </b>
+    <select id="end">
+      <option value="260 Broadway New York NY 10007">City Hall</option>
+      <option value="W 49th St & 5th Ave, New York, NY 10020">Rockefeller Center</option>
+      <option value="moma, New York, NY">MOMA</option>
+      <option value="350 5th Ave, New York, NY, 10118">Empire State Building</option>
+      <option value="253 West 125th Street, New York, NY">Apollo Theater</option>
+      <option value="1 Wall St, New York, NY">Wall St</option>
+    </select>
+    </div>
+        <div id='map' style='width:1100px; height:530px;'></div>
+        <div id='route-narrative' style='margin-top:20px;'></div>
+    </body>
+</html>
