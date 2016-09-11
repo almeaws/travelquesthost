@@ -19,14 +19,14 @@ var queryString = require('querystring');
     var options1 = {
         hostname: 'mapquestapi.com',
         port: 443,
-        path: '/directions/v2/route?key=UShjaMayAC4UkuBJ5nu5rqFuraxzEOQU&from=grand%20central%20station%2C%20new%20york%2C%20ny&to=W%2049th%20St%20%2526%205th%20Ave%2C%20New%20York%2C%20NY%2010020',
+        path: '/directions/v2/route?key=&from=grand%20central%20station%2C%20new%20york%2C%20ny&to=W%2049th%20St%20%2526%205th%20Ave%2C%20New%20York%2C%20NY%2010020',
         method: 'GET'
     };
     
     var responsebodyfrommapquest;
     
     // Setup the HTTP request
-    var req1 = https.request('https://www.mapquestapi.com/directions/v2/route?key=UShjaMayAC4UkuBJ5nu5rqFuraxzEOQU&from=grand%20central%20station%2C%20new%20york%2C%20ny&to=W%2049th%20St%20%2526%205th%20Ave%2C%20New%20York%2C%20NY%2010020', function (res1) {
+    var req1 = https.request('https://www.mapquestapi.com/directions/v2/route?key=&from=grand%20central%20station%2C%20new%20york%2C%20ny&to=W%2049th%20St%20%2526%205th%20Ave%2C%20New%20York%2C%20NY%2010020', function (res1) {
         console.log('getting into the request 1');
         responsebodyfrommapquest=res1.body;
         res1.setEncoding('utf-8');
